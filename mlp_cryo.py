@@ -39,7 +39,7 @@ model.fit(X_train, Y_train)
 Y_predict = model.predict(X_test)
 
 # print results
-print("\nY_test:", Y_test)
+print("\nY_test:", Y_test.to_numpy())
 print("Y_predict:", Y_predict)
 
 # print metrics

@@ -21,11 +21,13 @@ print("Target:", df.columns.values[-1])
 # scaling and labelling features
 ss = StandardScaler()
 le = LabelEncoder()
+df.iloc[:,:-1] = ss.fit_transform(df.iloc[:,:-1])
+df.iloc[:,-1] = le.fit_transform(df.iloc[:,-1])
 X = df.iloc[:,:-1]
 Y = df.iloc[:,-1]
 
-X = ss.fit_transform(X)
-Y = le.fit_transform(Y)
+print("\nData after transform and labelling:")
+print(df.head())
 
 # splitting dataset into train and test
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, random_state=1, test_size=0.15)
@@ -39,7 +41,7 @@ model.fit(X_train, Y_train)
 Y_predict = model.predict(X_test)
 
 # print results
-print("\nY_test:", Y_test)
+print("\nY_test:", Y_test.to_numpy())
 print("Y_predict:", Y_predict)
 
 # print metrics

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
@@ -12,7 +13,14 @@ print(df.head())
 print("\nData Description:")
 print(df.describe())
 
-# split train and test
+# scaling features
+ss = StandardScaler()
+df.iloc[:,:-1] = ss.fit_transform(df.iloc[:,:-1])
+
+print("\nDataset after transform:")
+print(df.head())
+
+# split dataset into train and test
 X = df.iloc[:,:-1]
 Y = df.iloc[:,-1]
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, random_state=1, test_size=0.2)
